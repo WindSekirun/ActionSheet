@@ -3,6 +3,7 @@ package pyxis.uzuki.live.actionsheet.listener;
 import java.io.Serializable;
 
 import pyxis.uzuki.live.actionsheet.ActionSheet;
+import pyxis.uzuki.live.actionsheet.model.ActionButton;
 
 /**
  * ActionSheet
@@ -13,5 +14,5 @@ import pyxis.uzuki.live.actionsheet.ActionSheet;
  */
 
 public interface OnActionButtonClickListener extends Serializable {
-    void onActionButtonClick(ActionSheet actionSheet, int index);
+    void onActionButtonClick(ActionSheet actionSheet, ActionButton actionButton, int index);
 }

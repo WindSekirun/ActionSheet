@@ -35,7 +35,7 @@ class ActionSheet : Fragment(), View.OnClickListener {
     private lateinit var mGroup: ViewGroup
     private lateinit var sheetConfig: ActionSheetConfig
 
-    private val isCancel = true
+    private var isCancel = true
     private var mDismissed = true
 
     override fun onSaveInstanceState(outState: Bundle?) {
@@ -174,13 +174,25 @@ class ActionSheet : Fragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        if (v?.id == Constants.BG_VIEW_ID && !sheetConfig.cancelableOnTouchOutside) {
+        val id = v?.id ?: 0
+        if (id == Constants.BG_VIEW_ID && !sheetConfig.cancelableOnTouchOutside) {
             return
+        }
+
+        dismiss()
+        if (id != Constants.CANCEL_BUTTON_ID && id != Constants.BG_VIEW_ID) {
+            if (sheetConfig.onActionButtonClickListener != null) {
+                val index = (id - Constants.CANCEL_BUTTON_ID - 1)
+                val actionButton = sheetConfig.items[index]
+                sheetConfig.onActionButtonClickListener?.onActionButtonClick(this, actionButton, index)
+            }
+            isCancel = false
         }
     }
 
     companion object {
 
+        @JvmStatic
         fun show(context: Context, fragmentManager: FragmentManager, sheetConfig: ActionSheetConfig) {
             val bundle = Bundle()
             bundle.putSerializable(Constants.SHEET_CONFIG, sheetConfig)

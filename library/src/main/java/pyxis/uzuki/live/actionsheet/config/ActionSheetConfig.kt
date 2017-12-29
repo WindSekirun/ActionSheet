@@ -24,9 +24,15 @@ data class ActionSheetConfig(val items: List<ActionButton>, val cancelButton: Ac
         private var onActionButtonClickListener: OnActionButtonClickListener? = null
         private var cancelable: Boolean = false
 
+        fun addItem(vararg items: String) = apply { this.items.addAll(items.map { ActionButton(it) }) }
+
+        fun addItem(title: String, @ColorInt color: Int) = apply { this.items.add(ActionButton(title, color)) }
+
         fun addItem(vararg items: ActionButton) = apply { this.items.addAll(items) }
 
         fun setItems(items: ArrayList<ActionButton>) = apply { this.items.addAll(items) }
+
+        fun setCancelButton(title: String) = apply { this.cancelButton = ActionButton(title) }
 
         fun setCancelButton(title: String, @ColorInt color: Int) = apply { this.cancelButton = ActionButton(title, color) }
 
