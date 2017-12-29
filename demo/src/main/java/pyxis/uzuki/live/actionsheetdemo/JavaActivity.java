@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
+import android.widget.Toast;
 
 import pyxis.uzuki.live.actionsheet.ActionSheet;
 import pyxis.uzuki.live.actionsheet.config.ActionSheetConfig;
@@ -40,7 +41,7 @@ public class JavaActivity extends AppCompatActivity {
 
                 })
                 .setOnActionButtonClickListener((OnActionButtonClickListener) (actionSheet, actionButton, index) -> {
-
+                    Toast.makeText(this, String.format("clicked %s", actionButton.getTitle()), Toast.LENGTH_SHORT).show();
                 })
                 .build();
 

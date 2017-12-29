@@ -19,8 +19,3 @@ fun createTranslationOutAnimation(): Animation = TranslateAnimation(type, 0f, ty
     duration = Constants.TRANSLATE_DURATION
     fillAfter = true
 }
-
-fun createAlphaOutAnimation(): Animation = AlphaAnimation(0f, 1f).apply {
-    duration = Constants.ALPHA_DURATION
-    fillAfter = true
-}

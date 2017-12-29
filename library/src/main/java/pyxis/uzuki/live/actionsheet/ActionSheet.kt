@@ -64,7 +64,6 @@ class ActionSheet : Fragment(), View.OnClickListener {
 
     override fun onDestroyView() {
         mPanel.startAnimation(createTranslationOutAnimation())
-        mBg.startAnimation(createAlphaOutAnimation())
         mView.postDelayed({ mGroup.removeView(mView) }, Constants.ALPHA_DURATION)
         sheetConfig.onDismissListener?.onDismiss(this, isCancel)
         super.onDestroyView()
@@ -130,7 +129,6 @@ class ActionSheet : Fragment(), View.OnClickListener {
 
             if (i > 0) {
                 val params = createLinearParams()
-                params.topMargin = activity.dip2px(2).toInt()
                 mPanel.addView(button, params)
             } else {
                 mPanel.addView(button)
@@ -138,7 +136,6 @@ class ActionSheet : Fragment(), View.OnClickListener {
         }
 
         val button = createButton(sheetConfig.cancelButton)
-        button.paint.isFakeBoldText = true
         button.id = Constants.CANCEL_BUTTON_ID
         button.background = activity.getDrawableRes(R.drawable.slt_as_ios7_cancel_bt)
 

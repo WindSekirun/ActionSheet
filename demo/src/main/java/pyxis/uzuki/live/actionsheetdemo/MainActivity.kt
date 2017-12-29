@@ -3,6 +3,7 @@ package pyxis.uzuki.live.actionsheetdemo
 import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import pyxis.uzuki.live.actionsheet.ActionSheet
 import pyxis.uzuki.live.actionsheet.config.ActionSheetConfig
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
                 })
                 .setOnActionButtonClickListener(OnActionButtonClickListener { actionSheet, actionButton, index ->
-
+                    Toast.makeText(this@MainActivity, "clicked %s".format(actionButton.title), Toast.LENGTH_SHORT).show()
                 })
                 .build()
 
