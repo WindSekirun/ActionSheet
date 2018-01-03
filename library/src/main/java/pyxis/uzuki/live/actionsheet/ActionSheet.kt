@@ -19,7 +19,9 @@ import android.widget.LinearLayout
 import pyxis.uzuki.live.actionsheet.config.ActionSheetConfig
 import pyxis.uzuki.live.actionsheet.model.ActionButton
 import pyxis.uzuki.live.actionsheet.utils.*
+import pyxis.uzuki.live.richutilskt.utils.dip2px
 import pyxis.uzuki.live.richutilskt.utils.hideKeyboard
+
 
 /**
  * ActionSheet
@@ -106,7 +108,7 @@ class ActionSheet : Fragment(), View.OnClickListener {
         parent.layoutParams = createFrameParams()
         mBg = View(activity)
         mBg.layoutParams = createFrameParams()
-        mBg.setBackgroundColor(Color.argb(136, 0, 0, 0))
+        mBg.setBackgroundColor(Color.argb(19, 0, 0, 0))
         mBg.id = Constants.BG_VIEW_ID
         mBg.setOnClickListener(this)
 
@@ -127,45 +129,51 @@ class ActionSheet : Fragment(), View.OnClickListener {
             button.id = Constants.CANCEL_BUTTON_ID + i + 1
             button.background = getButtonBackground(i)
 
-            if (i > 0) {
-                val params = createLinearParams()
-                mPanel.addView(button, params)
-            } else {
-                mPanel.addView(button)
+            val divider = View(activity)
+            divider.setBackgroundColor(Color.parseColor("#e4e4e4"))
+
+            val dividerParam = createLinearParams(height = activity.dip2px(1))
+
+            val params = createLinearParams(height = activity.dip2px(50))
+            mPanel.addView(button, params)
+
+            if (i != sheetConfig.items.size - 1) {
+                mPanel.addView(divider, dividerParam)
             }
         }
 
         val button = createButton(sheetConfig.cancelButton)
         button.id = Constants.CANCEL_BUTTON_ID
-        button.background = activity.getDrawableRes(R.drawable.slt_as_ios7_cancel_bt)
+        button.background = activity.getDrawableRes(R.drawable.bg_popup_single)
 
-        val params = createLinearParams()
-        val dip20 = activity.dip2px(20).toInt()
-        params.topMargin = activity.dip2px(10).toInt()
+        val params = createLinearParams(height = activity.dip2px(50))
+        val dip20 = activity.dip2px(20)
+        params.topMargin = activity.dip2px(10)
         mPanel.addView(button, params)
         mPanel.background = ColorDrawable(Color.TRANSPARENT)
         mPanel.setPadding(dip20, dip20, dip20, dip20)
     }
 
-    private fun createButton(actionButton: ActionButton) = Button(activity).apply {
+    private fun createButton(actionButton: ActionButton) = Button(activity, null,
+            android.R.attr.borderlessButtonStyle).apply {
         setOnClickListener(this@ActionSheet)
         text = actionButton.title
         setTextColor(actionButton.color)
-        setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.dip2px(16))
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.dip2px(16).toFloat())
     }
 
     private fun getButtonBackground(i: Int): Drawable = when (sheetConfig.items.size) {
-        1 -> activity.getDrawableRes(R.drawable.slt_as_ios7_other_bt_single)
+        1 -> activity.getDrawableRes(R.drawable.bg_popup_single)
         2 -> when (i) {
-            0 -> activity.getDrawableRes(R.drawable.slt_as_ios7_other_bt_top)
-            1 -> activity.getDrawableRes(R.drawable.slt_as_ios7_other_bt_bottom)
-            else -> activity.getDrawableRes(R.drawable.slt_as_ios7_other_bt_bottom)
+            0 -> activity.getDrawableRes(R.drawable.bg_popup_top)
+            1 -> activity.getDrawableRes(R.drawable.bg_popup_bottom)
+            else -> activity.getDrawableRes(R.drawable.bg_popup_bottom)
         }
         else -> {
             when (i) {
-                0 -> activity.getDrawableRes(R.drawable.slt_as_ios7_other_bt_top)
-                (sheetConfig.items.size - 1) -> activity.getDrawableRes(R.drawable.slt_as_ios7_other_bt_bottom)
-                else -> activity.getDrawableRes(R.drawable.slt_as_ios7_other_bt_middle)
+                0 -> activity.getDrawableRes(R.drawable.bg_popup_top)
+                (sheetConfig.items.size - 1) -> activity.getDrawableRes(R.drawable.bg_popup_bottom)
+                else -> activity.getDrawableRes(R.drawable.bg_popup_middle)
             }
         }
     }
