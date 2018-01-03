@@ -154,10 +154,10 @@ class ActionSheet : Fragment(), View.OnClickListener {
         mPanel.setPadding(dip20, dip20, dip20, dip20)
     }
 
-    private fun createButton(actionButton: ActionButton) = Button(activity, null,
-            android.R.attr.borderlessButtonStyle).apply {
+    private fun createButton(actionButton: ActionButton) = Button(activity, null, android.R.attr.borderlessButtonStyle).apply {
         setOnClickListener(this@ActionSheet)
         text = actionButton.title
+        setAllCaps(false)
         setTextColor(actionButton.color)
         setTextSize(TypedValue.COMPLEX_UNIT_PX, activity.dip2px(16).toFloat())
     }
@@ -198,11 +198,14 @@ class ActionSheet : Fragment(), View.OnClickListener {
     companion object {
 
         @JvmStatic
-        fun show(context: Context, fragmentManager: FragmentManager, sheetConfig: ActionSheetConfig) {
+        fun show(context: Context, fragmentManager: FragmentManager, sheetConfig: ActionSheetConfig): ActionSheet {
             val bundle = Bundle()
             bundle.putSerializable(Constants.SHEET_CONFIG, sheetConfig)
+
             val actionSheet = Fragment.instantiate(context, ActionSheet::class.java.name, bundle) as ActionSheet
             actionSheet.show(fragmentManager)
+            return actionSheet
         }
+
     }
 }

@@ -5,7 +5,6 @@ import pyxis.uzuki.live.actionsheet.listener.OnActionButtonClickListener
 import pyxis.uzuki.live.actionsheet.listener.OnDismissListener
 import pyxis.uzuki.live.actionsheet.model.ActionButton
 import java.io.Serializable
-import java.util.*
 
 /**
  * ActionSheet
@@ -14,7 +13,7 @@ import java.util.*
  *
  * Description:
  */
-data class ActionSheetConfig(val items: List<ActionButton>, val cancelButton: ActionButton, val onDismissListener: OnDismissListener?,
+data class ActionSheetConfig(val items: ArrayList<ActionButton>, val cancelButton: ActionButton, val onDismissListener: OnDismissListener?,
                              val onActionButtonClickListener: OnActionButtonClickListener?, val cancelableOnTouchOutside: Boolean) : Serializable {
 
     class Builder {

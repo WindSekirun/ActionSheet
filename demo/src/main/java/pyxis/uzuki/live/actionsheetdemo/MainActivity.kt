@@ -11,6 +11,7 @@ import pyxis.uzuki.live.actionsheet.listener.OnActionButtonClickListener
 import pyxis.uzuki.live.actionsheet.listener.OnDismissListener
 
 class MainActivity : AppCompatActivity() {
+    var actionsheet: ActionSheet? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,10 +22,10 @@ class MainActivity : AppCompatActivity() {
 
     private fun showActionSheet() {
         val config = ActionSheetConfig.Builder()
-                .addItem("내 앨범에서 선택", "카메라로 촬영 등록")
-                .addItem("등록 사진 삭제", Color.RED)
+                .addItem("Select from my Gallery", "Capture from Camera")
+                .addItem("Delete Picture", Color.RED)
                 .setCancelableOnTouchOutside(true)
-                .setCancelButton("취소")
+                .setCancelButton("Cancel")
                 .setOnDismissListener(OnDismissListener { actionSheet, isCancel ->
 
                 })
@@ -33,6 +34,12 @@ class MainActivity : AppCompatActivity() {
                 })
                 .build()
 
-        ActionSheet.show(this, supportFragmentManager, config)
+
+        actionsheet = ActionSheet.show(this, supportFragmentManager, config)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        actionsheet?.dismiss()
     }
 }

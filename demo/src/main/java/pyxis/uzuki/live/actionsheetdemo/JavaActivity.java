@@ -21,6 +21,7 @@ import pyxis.uzuki.live.actionsheet.listener.OnDismissListener;
  */
 
 public class JavaActivity extends AppCompatActivity {
+    private ActionSheet actionSheet = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -33,10 +34,10 @@ public class JavaActivity extends AppCompatActivity {
 
     private void showActionSheet() {
         ActionSheetConfig config = new ActionSheetConfig.Builder()
-                .addItem("내 앨범에서 선택", "카메라로 촬영 등록")
-                .addItem("등록 사진 삭제", Color.RED)
+                .addItem("Select from my Gallery", "Capture from Camera")
+                .addItem("Delete Picture", Color.RED)
                 .setCancelableOnTouchOutside(true)
-                .setCancelButton("취소")
+                .setCancelButton("Cancel")
                 .setOnDismissListener((OnDismissListener) (actionSheet, isCancel) -> {
 
                 })
@@ -45,6 +46,14 @@ public class JavaActivity extends AppCompatActivity {
                 })
                 .build();
 
-        ActionSheet.show(this, getSupportFragmentManager(), config);
+        actionSheet = ActionSheet.show(this, getSupportFragmentManager(), config);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (actionSheet != null) {
+            actionSheet.dismiss();
+        }
     }
 }
