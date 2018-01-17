@@ -1,4 +1,4 @@
-## ActionSheet [![](https://jitpack.io/v/WindSekirun/ActionSheet.svg)](https://jitpack.io/#WindSekirun/ActionSheet)
+## ActionSheet [![](https://jitpack.io/v/WindSekirun/ActionSheet.svg)](https://jitpack.io/#WindSekirun/ActionSheet) [![codebeat badge](https://codebeat.co/badges/01d0775b-2e7b-4240-83f7-3abfff86591f)](https://codebeat.co/projects/github-com-windsekirun-actionsheet-master)
 
 [![Kotlin](https://img.shields.io/badge/kotlin-1.2.0-blue.svg)](http://kotlinlang.org)
 
