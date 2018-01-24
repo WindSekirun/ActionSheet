@@ -1,10 +1,10 @@
-## ActionSheet 
+## ActionSheet [![](https://jitpack.io/v/WindSekirun/ActionSheet.svg)](https://jitpack.io/#WindSekirun/ActionSheet) [![codebeat badge](https://codebeat.co/badges/01d0775b-2e7b-4240-83f7-3abfff86591f)](https://codebeat.co/projects/github-com-windsekirun-actionsheet-master)
 
-[![Kotlin](https://img.shields.io/badge/kotlin-1.2.0-blue.svg)](http://kotlinlang.org)	[![GitHub license](https://img.shields.io/badge/license-Apache%20License%202.0-blue.svg?style=flat)](http://www.apache.org/licenses/LICENSE-2.0)
+[![Kotlin](https://img.shields.io/badge/kotlin-1.2.0-blue.svg)](http://kotlinlang.org)
 
-bring UIActionSheet in Android Application, written in Kotlin.
+bring [UIAlertController-UIActionSheet](https://developer.apple.com/documentation/uikit/uialertcontroller) in Android Application, written in [Kotlin](http://kotlinlang.org).
 
-
+<img src="https://github.com/WindSekirun/ActionSheet/blob/master/sample.png" width="202" height="360">
 
 This was fork of [android-ActionSheet](https://github.com/baoyongzhang/android-ActionSheet), but has been completely rewritten in Kotlin. See licensing info.
 
@@ -21,12 +21,51 @@ allprojects {
 *app/build.gradle*
 ```
 dependencies {
-    implementation ''
+    implementation 'com.github.WindSekirun:ActionSheet:1.0.0'
 }
 ```
 
 ### Usages
 
+#### Kotlin
+```Kotlin
+val config = ActionSheetConfig.Builder()
+                .addItem("Select from my Gallery", "Capture from Camera")
+                .addItem("Delete Picture", Color.RED)
+                .setCancelableOnTouchOutside(true)
+                .setCancelButton("Cancel")
+                .setOnDismissListener(OnDismissListener { actionSheet, isCancel ->
+
+                })
+                .setOnActionButtonClickListener(OnActionButtonClickListener { actionSheet, actionButton, index ->
+                    Toast.makeText(this@MainActivity, "clicked %s".format(actionButton.title), Toast.LENGTH_SHORT).show()
+                })
+                .build()
+
+
+actionsheet = ActionSheet.show(this, supportFragmentManager, config)
+```
+
+#### Java
+```Java
+ActionSheetConfig config = new ActionSheetConfig.Builder()
+                .addItem("Select from my Gallery", "Capture from Camera")
+                .addItem("Delete Picture", Color.RED)
+                .setCancelableOnTouchOutside(true)
+                .setCancelButton("Cancel")
+                .setOnDismissListener((OnDismissListener) (actionSheet, isCancel) -> {
+
+                })
+                .setOnActionButtonClickListener((OnActionButtonClickListener) (actionSheet, actionButton, index) -> {
+                    Toast.makeText(this, String.format("clicked %s", actionButton.getTitle()), Toast.LENGTH_SHORT).show();
+                })
+                .build();
+
+actionSheet = ActionSheet.show(this, getSupportFragmentManager(), config);
+````
+
+#### Common
+You should call ```actionSheet.dismiss();``` in your onPause of Activity. cause user can press home button.
 
 ### License 
 ```
