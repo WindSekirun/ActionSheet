@@ -96,10 +96,12 @@ class ActionSheet : Fragment(), View.OnClickListener {
         }
         mDismissed = true
         Handler().post({
-            fragmentManager.popBackStack()
-            val transaction = fragmentManager.beginTransaction()
-            transaction.remove(this@ActionSheet)
-            transaction.commitAllowingStateLoss()
+            if (fragmentManager != null) {
+                fragmentManager.popBackStack()
+                val transaction = fragmentManager.beginTransaction()
+                transaction.remove(this@ActionSheet)
+                transaction.commitAllowingStateLoss()
+            }
         })
     }
 
